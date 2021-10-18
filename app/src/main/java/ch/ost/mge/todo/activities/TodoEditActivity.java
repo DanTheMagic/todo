@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Date;
+import java.util.Calendar;
+
 import ch.ost.mge.todo.R;
 import ch.ost.mge.todo.database.Todo;
 import ch.ost.mge.todo.database.TodoDatabase;
@@ -34,9 +37,19 @@ public class TodoEditActivity extends AppCompatActivity {
         String title = titleEditText.getText().toString();
         String text = textEditText.getText().toString();
 
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, 2021);
+        c.set(Calendar.MONTH, 1-1);
+        c.set(Calendar.DAY_OF_MONTH, 1-1);
+        c.set(Calendar.HOUR, 16);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+
         Todo todo = new Todo();
         todo.title = title;
         todo.text = text;
+        todo.dueDateTime = c.getTime();
+        todo.completed = false;
 
         Runnable addToDb = () -> {
             TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").build();
