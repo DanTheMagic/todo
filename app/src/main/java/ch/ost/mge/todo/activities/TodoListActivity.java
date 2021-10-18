@@ -59,6 +59,7 @@ public class TodoListActivity extends AppCompatActivity {
         Runnable loadTodosAsync = () -> {
             TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").build();
 
+            //TODO Darf man das hier drin nicht machen?
             List<Todo> todos = db.todoDao().getEntries();
             adapter.updateTodos(todos);
 

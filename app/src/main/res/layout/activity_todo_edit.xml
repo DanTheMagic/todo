@@ -47,13 +47,76 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:hint="Text"
         android:gravity="start|top"
+        android:hint="Additional notes"
         android:inputType="textMultiLine|textAutoComplete|textAutoCorrect"
         app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/due_time_edittext"
         app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/due_date_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Due Date"
+        app:layout_constraintBaseline_toBaselineOf="@+id/due_date_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/title_text"
+        app:layout_constraintStart_toStartOf="@+id/title_text"
+        tools:layout_editor_absoluteY="74dp" />
+
+    <ImageButton
+        android:id="@+id/date_imagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/due_date_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/title_edittext"
+        app:layout_constraintTop_toTopOf="@+id/due_date_edittext"
+        app:srcCompat="@drawable/ic_baseline_date_range_24"
+        android:onClick="showDatePickerDialog"/>
+
+    <EditText
+        android:id="@+id/due_date_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintEnd_toStartOf="@+id/date_imagebutton"
+        app:layout_constraintStart_toEndOf="@+id/due_date_text"
+        app:layout_constraintTop_toBottomOf="@+id/title_edittext" />
+
+    <ImageButton
+        android:id="@+id/due_time_imagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/due_time_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/date_imagebutton"
+        app:layout_constraintTop_toTopOf="@+id/due_time_edittext"
+        app:srcCompat="@drawable/ic_baseline_access_time_24"
+        android:onClick="showTimePickerDialog" />
+
+    <EditText
+        android:id="@+id/due_time_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/due_time_imagebutton"
+        app:layout_constraintStart_toEndOf="@+id/due_time_text"
+        app:layout_constraintTop_toBottomOf="@+id/due_date_edittext" />
+
+    <TextView
+        android:id="@+id/due_time_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Due Time"
+        app:layout_constraintBaseline_toBaselineOf="@+id/due_time_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/due_date_text"
+        app:layout_constraintStart_toStartOf="@+id/due_date_text"
+        tools:layout_editor_absoluteY="129dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
