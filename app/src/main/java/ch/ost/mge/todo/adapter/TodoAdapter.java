@@ -9,9 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.ost.mge.todo.R;
 import ch.ost.mge.todo.database.Todo;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
@@ -33,21 +36,28 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(
-                android.R.layout.simple_list_item_2,
+                R.layout.todo_row,
                 parent,
                 false);
 
-        TextView titleTextView = view.findViewById(android.R.id.text1);
-        TextView textTextView = view.findViewById(android.R.id.text2);
+        TextView titleTextView = view.findViewById(R.id.row_title_text);
+        TextView textTextView = view.findViewById(R.id.row_text_text);
+        TextView dueDateTimeTextView = view.findViewById(R.id.row_due_datetime_text);
 
-        return new TodoViewHolder(view, titleTextView, textTextView);
+        return new TodoViewHolder(view, titleTextView, textTextView, dueDateTimeTextView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
         Todo todo = this.todos.get(position);
         holder.titleTextView.setText(todo.title);
-        holder.textTextView.setText(todo.text);
+        holder.textTextView.setText(todo.text.indexOf("\n") >= 0 ? todo.text.substring(0, todo.text.indexOf("\n")) : todo.text);
+
+        String dateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(todo.dueDateTime.getTime());
+        DateFormat outputFormatter = new SimpleDateFormat("HH:mm");
+        String timeString = outputFormatter.format(todo.dueDateTime.getTime());
+
+        holder.dueDateTimeTextView.setText(dateString + " " + timeString);
     }
 
     @Override
