@@ -1,10 +1,12 @@
 package ch.ost.mge.todo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.ost.mge.todo.R;
+import ch.ost.mge.todo.activities.TodoEditActivity;
 import ch.ost.mge.todo.database.Todo;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
@@ -49,6 +52,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
+        Context context = holder.itemView.getContext();
+
         Todo todo = this.todos.get(position);
         holder.titleTextView.setText(todo.title);
         holder.textTextView.setText(todo.text.indexOf("\n") >= 0 ? todo.text.substring(0, todo.text.indexOf("\n")) : todo.text);
@@ -58,6 +63,12 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
         String timeString = outputFormatter.format(todo.dueDateTime.getTime());
 
         holder.dueDateTimeTextView.setText(dateString + " " + timeString);
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, TodoEditActivity.class);
+            intent.putExtra("todoId", todo.id);
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override

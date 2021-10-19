@@ -56,17 +56,10 @@ public class TodoListActivity extends AppCompatActivity {
     }
 
     private void loadTodos() {
-        Runnable loadTodosAsync = () -> {
-            TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").build();
-
-            List<Todo> todos = db.todoDao().getEntries();
-            //TODO Darf man das hier drin nicht machen? Zugriff auf main Thread
-            adapter.updateTodos(todos);
-
-            db.close();
-        };
-
-        new Thread(loadTodosAsync).start();
+        TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
+        List<Todo> todos = db.todoDao().getAll();
+        adapter.updateTodos(todos);
+        db.close();
     }
 
     @Override

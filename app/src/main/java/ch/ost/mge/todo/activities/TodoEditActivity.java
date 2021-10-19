@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.List;
 
 import ch.ost.mge.todo.R;
 import ch.ost.mge.todo.database.Todo;
@@ -33,7 +34,8 @@ public class TodoEditActivity extends AppCompatActivity implements DatePickerDia
     private EditText dueTimeEditText;
     private Button saveButton;
 
-    private Date dueDateTime = Calendar.getInstance().getTime();
+    private Todo _todo;
+    private int _todoId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,29 +54,36 @@ public class TodoEditActivity extends AppCompatActivity implements DatePickerDia
         dueTimeEditText = findViewById(R.id.due_time_edittext);
         dueTimeEditText.setEnabled(false);
 
+        _todoId = this.getIntent().getIntExtra("todoId", 0);
+        if(_todoId > 0) {
+            TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
+            _todo = db.todoDao().getById(_todoId);
+            db.close();
+        } else {
+            _todo = new Todo();
+            _todo.dueDateTime = Calendar.getInstance().getTime();
+        }
+
+        titleEditText.setText(_todo.title);
+        textEditText.setText(_todo.text);
         updateDueDisplay();
     }
 
     private void saveTodo() {
-        String title = titleEditText.getText().toString();
-        String text = textEditText.getText().toString();
+        _todo.title = titleEditText.getText().toString();
+        _todo.text = textEditText.getText().toString();
+        _todo.completed = false;
 
-        Todo todo = new Todo();
-        todo.title = title;
-        todo.text = text;
-        todo.dueDateTime = dueDateTime;
-        todo.completed = false;
+        TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
+        if(_todoId > 0) {
+            db.todoDao().update(_todo);
+        } else {
+            db.todoDao().insert(_todo);
+        }
+        db.close();
 
-        Runnable addToDb = () -> {
-            TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").build();
-            db.todoDao().insert(todo);
-            db.close();
-
-            Intent intent = new Intent(this, TodoListActivity.class);
-            startActivity(intent);
-        };
-
-        new Thread(addToDb).start();
+        Intent intent = new Intent(this, TodoListActivity.class);
+        startActivity(intent);
     }
 
     public void showDatePickerDialog(View v) {
@@ -89,24 +98,24 @@ public class TodoEditActivity extends AppCompatActivity implements DatePickerDia
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        dueDateTime.setYear(year-1900);
-        dueDateTime.setMonth(month);
-        dueDateTime.setDate(dayOfMonth);
+        _todo.dueDateTime.setYear(year-1900);
+        _todo.dueDateTime.setMonth(month);
+        _todo.dueDateTime.setDate(dayOfMonth);
         updateDueDisplay();
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        dueDateTime.setHours(hourOfDay);
-        dueDateTime.setMinutes(minute);
+        _todo.dueDateTime.setHours(hourOfDay);
+        _todo.dueDateTime.setMinutes(minute);
         updateDueDisplay();
     }
 
     private void updateDueDisplay() {
-        String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(dueDateTime.getTime());
+        String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(_todo.dueDateTime.getTime());
         dueDateEditText.setText(currentDateString);
 
         DateFormat outputFormatter = new SimpleDateFormat("HH:mm");
-        dueTimeEditText.setText(outputFormatter.format(dueDateTime));
+        dueTimeEditText.setText(outputFormatter.format(_todo.dueDateTime));
     }
 }
