@@ -1,5 +1,6 @@
 package ch.ost.mge.todo.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
@@ -9,6 +10,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -128,5 +132,41 @@ public class TodoEditActivity extends AppCompatActivity implements DatePickerDia
 
         DateFormat outputFormatter = new SimpleDateFormat("HH:mm");
         dueTimeEditText.setText(outputFormatter.format(_todo.dueDateTime));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_edit, menu);
+
+        menu.findItem(R.id.menu_item_delete).setVisible(_todoId > 0);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_delete:
+                AlertDialog dialog;
+                dialog = new AlertDialog.Builder(this)
+                        .setTitle("Delete Todo")
+                        .setMessage("Do you really want to delete this todo?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (d, id) -> {
+                            TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
+                            db.todoDao().delete(_todo);
+                            db.close();
+
+                            Intent intent = new Intent(this, TodoListActivity.class);
+                            startActivity(intent);
+                        })
+                        .setNegativeButton("No", (d, id) -> { /* Do nothing */ })
+                        .create();
+                dialog.show();
+                break;
+        }
+
+        return true;
     }
 }

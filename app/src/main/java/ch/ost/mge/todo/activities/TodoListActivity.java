@@ -90,23 +90,23 @@ public class TodoListActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         switch (itemId) {
-            case R.id.menu_add:
+            case R.id.menu_item_add:
                 Intent intent = new Intent(this, TodoEditActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.menu_show_all:
+            case R.id.menu_item_show_all:
                 _showState = 0;
                 break;
-            case R.id.menu_show_only_open:
+            case R.id.menu_item_show_only_open:
                 _showState = 1;
                 break;
-            case R.id.menu_show_only_completed:
+            case R.id.menu_item_show_only_completed:
                 _showState = 2;
                 break;
         }
 
-        if(itemId == R.id.menu_show_all || itemId == R.id.menu_show_only_open ||
-                itemId == R.id.menu_show_only_completed) {
+        if(itemId == R.id.menu_item_show_all || itemId == R.id.menu_item_show_only_open ||
+                itemId == R.id.menu_item_show_only_completed) {
             _preferenceHelper.setShowState(_showState);
             loadTodos();
         }

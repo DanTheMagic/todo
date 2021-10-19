@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_add"
+    <item android:id="@+id/menu_item_add"
         android:title="Add"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
         app:showAsAction="always"/>
-    <item android:id="@+id/menu_show_all"
+    <item android:id="@+id/menu_item_show_all"
         android:title="Show all"/>
-    <item android:id="@+id/menu_show_only_open"
+    <item android:id="@+id/menu_item_show_only_open"
         android:title="Show only open"/>
-    <item android:id="@+id/menu_show_only_completed"
+    <item android:id="@+id/menu_item_show_only_completed"
         android:title="Show only completed"/>
 </menu>
