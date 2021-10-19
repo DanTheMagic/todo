@@ -10,7 +10,7 @@ import java.util.List;
 
 @Dao
 public interface TodoDao {
-    @Query("SELECT * FROM todo ORDER BY date(dueDateTime) asc")
+    @Query("SELECT * FROM todo ORDER BY dueDateTime ASC")
     List<Todo> getAll();
 
     @Query("SELECT * FROM todo WHERE id = :id")
