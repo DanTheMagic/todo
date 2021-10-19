@@ -1,5 +1,7 @@
 package ch.ost.mge.todo.adapter;
 
+import static androidx.core.content.ContextCompat.getColor;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,12 +10,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import ch.ost.mge.todo.R;
@@ -63,6 +67,11 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
         String timeString = outputFormatter.format(todo.dueDateTime.getTime());
 
         holder.dueDateTimeTextView.setText(dateString + " " + timeString);
+
+        //if(todo.dueDateTime.getTime() < Calendar.getInstance().getTimeInMillis()) {
+        if(!todo.completed) {
+            holder.dueDateTimeTextView.setTextColor(getColor(context, R.color.red));
+        }
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, TodoEditActivity.class);
