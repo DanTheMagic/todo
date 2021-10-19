@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/due_time_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/completed_switch"
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -106,6 +106,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/due_time_imagebutton"
         app:layout_constraintStart_toEndOf="@+id/due_time_text"
         app:layout_constraintTop_toBottomOf="@+id/due_date_edittext" />
@@ -119,4 +120,23 @@
         app:layout_constraintEnd_toEndOf="@+id/due_date_text"
         app:layout_constraintStart_toStartOf="@+id/due_date_text"
         tools:layout_editor_absoluteY="129dp" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/completed_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/completed_text"
+        app:layout_constraintTop_toBottomOf="@+id/due_time_edittext" />
+
+    <TextView
+        android:id="@+id/completed_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Completed"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/completed_switch"
+        app:layout_constraintEnd_toStartOf="@+id/due_time_edittext"
+        app:layout_constraintStart_toStartOf="@+id/due_time_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package ch.ost.mge.todo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.room.Room;
 
@@ -33,6 +34,8 @@ public class TodoEditActivity extends AppCompatActivity implements DatePickerDia
     private EditText dueDateEditText;
     private EditText dueTimeEditText;
     private Button saveButton;
+    private TextView completedText;
+    private SwitchCompat completedSwitch;
 
     private Todo _todo;
     private int _todoId;
@@ -54,25 +57,33 @@ public class TodoEditActivity extends AppCompatActivity implements DatePickerDia
         dueTimeEditText = findViewById(R.id.due_time_edittext);
         dueTimeEditText.setEnabled(false);
 
+        completedText = findViewById(R.id.completed_text);
+        completedSwitch = findViewById(R.id.completed_switch);
+
         _todoId = this.getIntent().getIntExtra("todoId", 0);
+
         if(_todoId > 0) {
+            completedText.setVisibility(View.VISIBLE);
+            completedSwitch.setVisibility(View.VISIBLE);
+
             TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
             _todo = db.todoDao().getById(_todoId);
             db.close();
+
+            titleEditText.setText(_todo.title);
+            textEditText.setText(_todo.text);
+            completedSwitch.setChecked(_todo.completed);
         } else {
             _todo = new Todo();
             _todo.dueDateTime = Calendar.getInstance().getTime();
         }
-
-        titleEditText.setText(_todo.title);
-        textEditText.setText(_todo.text);
         updateDueDisplay();
     }
 
     private void saveTodo() {
         _todo.title = titleEditText.getText().toString();
         _todo.text = textEditText.getText().toString();
-        _todo.completed = false;
+        _todo.completed = _todoId != 0 ? completedSwitch.isChecked() : false;
 
         TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
         if(_todoId > 0) {
