@@ -5,4 +5,10 @@
         android:title="Add"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
         app:showAsAction="always"/>
+    <item android:id="@+id/menu_show_all"
+        android:title="Show all"/>
+    <item android:id="@+id/menu_show_only_open"
+        android:title="Show only open"/>
+    <item android:id="@+id/menu_show_only_completed"
+        android:title="Show only completed"/>
 </menu>

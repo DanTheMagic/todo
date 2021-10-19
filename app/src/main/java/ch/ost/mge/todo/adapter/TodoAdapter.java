@@ -26,13 +26,16 @@ import ch.ost.mge.todo.database.Todo;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
     private List<Todo> todos;
+    private int showState;
 
     public TodoAdapter() {
         this.todos = new ArrayList<>();
     }
 
-    public void updateTodos(List<Todo> todos) {
+    public void updateTodos(List<Todo> todos, int showState) {
         this.todos = todos;
+        this.showState = showState;
+
         this.notifyDataSetChanged();
     }
 
@@ -68,8 +71,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
 
         holder.dueDateTimeTextView.setText(dateString + " " + timeString);
 
+        holder.dueDateTimeTextView.setTextColor(getColor(context, R.color.black));
         //if(todo.dueDateTime.getTime() < Calendar.getInstance().getTimeInMillis()) {
-        if(!todo.completed) {
+        if(showState == 0 && !todo.completed) {
             holder.dueDateTimeTextView.setTextColor(getColor(context, R.color.red));
         }
 
