@@ -19,12 +19,15 @@ import ch.ost.mge.todo.R;
 import ch.ost.mge.todo.adapter.TodoAdapter;
 import ch.ost.mge.todo.database.Todo;
 import ch.ost.mge.todo.database.TodoDatabase;
+import ch.ost.mge.todo.preferences.PreferenceHelper;
 
 public class TodoListActivity extends AppCompatActivity {
+
     private TextView bottomText;
 
+    private PreferenceHelper _preferenceHelper;
     private TodoAdapter _adapter;
-    private int _showState = 0;
+    private int _showState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +45,10 @@ public class TodoListActivity extends AppCompatActivity {
         recyclerView.setAdapter(_adapter);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+        _preferenceHelper = new PreferenceHelper(getApplicationContext());
+
+        _showState = _preferenceHelper.getShowState();
         loadTodos();
-    }
-
-    private void writeDatabaseWithRoom() {
-        Runnable write = () -> {
-            Todo todo = new Todo();
-            todo.title = "title";
-            todo.text = "das ist ein text";
-
-            TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").build();
-            db.todoDao().insert(todo);
-            db.close();
-        };
-
-        new Thread(write).start();
     }
 
     private void loadTodos() {
@@ -95,25 +87,30 @@ public class TodoListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        int itemId = item.getItemId();
+
+        switch (itemId) {
             case R.id.menu_add:
                 Intent intent = new Intent(this, TodoEditActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menu_show_all:
                 _showState = 0;
-                loadTodos();
                 break;
             case R.id.menu_show_only_open:
                 _showState = 1;
-                loadTodos();
                 break;
             case R.id.menu_show_only_completed:
                 _showState = 2;
-                loadTodos();
                 break;
         }
+
+        if(itemId == R.id.menu_show_all || itemId == R.id.menu_show_only_open ||
+                itemId == R.id.menu_show_only_completed) {
+            _preferenceHelper.setShowState(_showState);
+            loadTodos();
+        }
+
         return true;
     }
-
 }
