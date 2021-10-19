@@ -87,12 +87,12 @@ public class TodoEditActivity extends AppCompatActivity implements DatePickerDia
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment dateFragment = new DatePickerFragment();
+        DialogFragment dateFragment = new DatePickerFragment(_todo.dueDateTime);
         dateFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     public void showTimePickerDialog(View v) {
-        DialogFragment timeFragment = new TimePickerFragment();
+        DialogFragment timeFragment = new TimePickerFragment(_todo.dueDateTime);
         timeFragment.show(getSupportFragmentManager(), "timePicker");
     }
 

@@ -7,17 +7,20 @@ import android.text.format.DateFormat;
 
 import androidx.fragment.app.DialogFragment;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class TimePickerFragment extends DialogFragment {
+    private Date _dateTimeDue;
+
+    public TimePickerFragment(Date dateTimeDue) {
+        _dateTimeDue = dateTimeDue;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current time as the default values for the picker
-        final Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
+        int hour = _dateTimeDue.getHours();
+        int minute = _dateTimeDue.getMinutes();
 
-        // Create a new instance of TimePickerDialog and return it
         return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener) getActivity(), hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
     }

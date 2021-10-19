@@ -6,22 +6,21 @@ import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class DatePickerFragment extends DialogFragment {
+    private Date _dateTimeDue;
 
-    public DatePickerFragment() {
+    public DatePickerFragment(Date dateTimeDue) {
+        _dateTimeDue = dateTimeDue;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        int year = _dateTimeDue.getYear()+1900;
+        int month = _dateTimeDue.getMonth();
+        int day = _dateTimeDue.getDate();
 
-        // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
     }
 }
