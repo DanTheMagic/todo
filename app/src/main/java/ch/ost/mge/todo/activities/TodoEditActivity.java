@@ -32,7 +32,7 @@ import ch.ost.mge.todo.database.TodoDatabase;
 import ch.ost.mge.todo.fragments.DatePickerFragment;
 import ch.ost.mge.todo.fragments.TimePickerFragment;
 
-public class TodoEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class TodoEditActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private EditText titleEditText;
     private EditText textEditText;
     private EditText dueDateEditText;

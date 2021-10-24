@@ -7,6 +7,7 @@
     <string name="show_all">Show all</string>
     <string name="show_only_open">Show only open</string>
     <string name="show_only_completed">Show only completed</string>
+    <string name="select_theme">Select theme</string>
     <string name="all">All</string>
     <string name="open">Open</string>
     <string name="completed">Completed</string>
@@ -18,4 +19,8 @@
     <string name="delete">Delete</string>
     <string name="delete_todo_title">Delete Todo</string>
     <string name="delete_todo_message">Do you really want to delete this todo?</string>
+    <string name="select_your_preferred_theme">Select your preferred theme</string>
+    <string name="orange">Orange</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
 </resources>

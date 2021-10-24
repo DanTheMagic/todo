@@ -1,6 +1,7 @@
 package ch.ost.mge.todo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,19 +24,21 @@ import ch.ost.mge.todo.database.Todo;
 import ch.ost.mge.todo.database.TodoDatabase;
 import ch.ost.mge.todo.preferences.PreferenceHelper;
 
-public class TodoListActivity extends AppCompatActivity {
+public class TodoListActivity extends BaseActivity {
 
     private TextView bottomText;
     private ImageView noTodoImage;
     private TextView noTodoText;
 
-    private PreferenceHelper _preferenceHelper;
     private TodoAdapter _adapter;
     private int _showState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        _showState = _preferenceHelper.getShowState();
+
         setContentView(R.layout.activity_todo_list);
 
         bottomText = findViewById(R.id.bottom_text);
@@ -50,10 +53,6 @@ public class TodoListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(_adapter);
         recyclerView.addItemDecoration(dividerItemDecoration);
-
-        _preferenceHelper = new PreferenceHelper(getApplicationContext());
-
-        _showState = _preferenceHelper.getShowState();
         loadTodos();
     }
 
@@ -95,6 +94,7 @@ public class TodoListActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        MenuCompat.setGroupDividerEnabled(menu, true);
 
         return true;
     }
@@ -105,8 +105,8 @@ public class TodoListActivity extends AppCompatActivity {
 
         switch (itemId) {
             case R.id.menu_item_add:
-                Intent intent = new Intent(this, TodoEditActivity.class);
-                startActivity(intent);
+                Intent intentTodoEdit = new Intent(this, TodoEditActivity.class);
+                startActivity(intentTodoEdit);
                 break;
             case R.id.menu_item_show_all:
                 _showState = 0;
@@ -117,6 +117,10 @@ public class TodoListActivity extends AppCompatActivity {
             case R.id.menu_item_show_only_completed:
                 _showState = 2;
                 break;
+            case R.id.menu_item_select_theme:
+                Intent intentSelectTheme = new Intent(this, SelectThemeActivity.class);
+                startActivity(intentSelectTheme);
+                return true;
         }
 
         if(itemId == R.id.menu_item_show_all || itemId == R.id.menu_item_show_only_open ||

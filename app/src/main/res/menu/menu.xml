@@ -5,10 +5,18 @@
         android:title="@string/add"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
         app:showAsAction="always"/>
-    <item android:id="@+id/menu_item_show_all"
-        android:title="@string/show_all"/>
-    <item android:id="@+id/menu_item_show_only_open"
-        android:title="@string/show_only_open"/>
-    <item android:id="@+id/menu_item_show_only_completed"
-        android:title="@string/show_only_completed"/>
+    <group android:id="@+id/group_show">
+        <item
+            android:id="@+id/menu_item_show_all"
+            android:title="@string/show_all" />
+        <item
+            android:id="@+id/menu_item_show_only_open"
+            android:title="@string/show_only_open" />
+        <item
+            android:id="@+id/menu_item_show_only_completed"
+            android:title="@string/show_only_completed" />
+    </group>
+    <group android:id="@+id/group_theme">
+        <item android:id="@+id/menu_item_select_theme" android:title="@string/select_theme" />
+    </group>
 </menu>

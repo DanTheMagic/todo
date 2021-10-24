@@ -8,6 +8,7 @@
     <string name="show_all">Alle anzeigen</string>
     <string name="show_only_open">Nur Offene anzeigen</string>
     <string name="show_only_completed">Nur Erledigte anzeigen</string>
+    <string name="select_theme">Theme auswählen</string>
     <string name="all">Alle</string>
     <string name="open">Offen</string>
     <string name="completed">Erledigt</string>
@@ -19,4 +20,8 @@
     <string name="delete">Löschen</string>
     <string name="delete_todo_title">Todo löschen</string>
     <string name="delete_todo_message">Wollen Sie den Todo wirklich löschen?</string>
+    <string name="select_your_preferred_theme">Wähle dein bevorzugtes Theme</string>
+    <string name="orange">Orange</string>
+    <string name="green">Grün</string>
+    <string name="blue">Blau</string>
 </resources>
