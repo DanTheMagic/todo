@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,8 +54,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
         TextView titleTextView = view.findViewById(R.id.row_title_text);
         TextView textTextView = view.findViewById(R.id.row_text_text);
         TextView dueDateTimeTextView = view.findViewById(R.id.row_due_datetime_text);
+        ImageView completedImageView = view.findViewById(R.id.row_completed_image);
 
-        return new TodoViewHolder(view, titleTextView, textTextView, dueDateTimeTextView);
+        return new TodoViewHolder(view, titleTextView, textTextView, dueDateTimeTextView, completedImageView);
     }
 
     @Override
@@ -68,20 +70,33 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
         String dateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(todo.dueDateTime.getTime());
         DateFormat outputFormatter = new SimpleDateFormat("HH:mm");
         String timeString = outputFormatter.format(todo.dueDateTime.getTime());
-
         holder.dueDateTimeTextView.setText(dateString + " " + timeString);
 
-        holder.dueDateTimeTextView.setTextColor(getColor(context, R.color.black));
-        //if(todo.dueDateTime.getTime() < Calendar.getInstance().getTimeInMillis()) {
-        if(showState == 0 && !todo.completed) {
-            holder.dueDateTimeTextView.setTextColor(getColor(context, R.color.red));
-        }
+        holder.dueDateTimeTextView.setTextColor(getColor(context, showState == 0 ? getOpenTodoColor(todo) : R.color.black));
 
+        holder.completedImageView.setVisibility(showState == 2 && todo.completed ? View.VISIBLE : View.INVISIBLE);
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, TodoEditActivity.class);
             intent.putExtra("todoId", todo.id);
             holder.itemView.getContext().startActivity(intent);
         });
+    }
+
+    private int getOpenTodoColor(Todo todo) {
+        if(todo.completed)
+            return R.color.black;
+
+        Calendar calendar = Calendar.getInstance();
+        if(todo.dueDateTime.getTime() < calendar.getTimeInMillis()) {
+            return R.color.red;
+        }
+
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        if(todo.dueDateTime.getTime() < calendar.getTimeInMillis()) {
+            return R.color.orange_todo;
+        }
+
+        return R.color.black;
     }
 
     @Override

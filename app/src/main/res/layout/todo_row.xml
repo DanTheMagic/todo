@@ -35,4 +35,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/row_title_text"
         app:layout_constraintTop_toBottomOf="@+id/row_title_text" />
+
+    <ImageView
+        android:id="@+id/row_completed_image"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/row_title_text"
+        app:layout_constraintStart_toEndOf="@+id/row_title_text"
+        app:layout_constraintTop_toTopOf="@+id/row_title_text"
+        app:srcCompat="@drawable/ic_baseline_done_outline_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

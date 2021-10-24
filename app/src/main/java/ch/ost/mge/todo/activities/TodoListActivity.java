@@ -62,16 +62,16 @@ public class TodoListActivity extends BaseActivity {
         String todoText = "";
         switch(_showState) {
             case 0:
-                todos = db.todoDao().getAll();
-                todoText = getString(R.string.all);
-                break;
-            case 1:
                 todos = db.todoDao().getUncompleted();
                 todoText = getString(R.string.open);
                 break;
-                case 2:
+                case 1:
                 todos = db.todoDao().getCompleted();
                 todoText = getString(R.string.completed);
+                break;
+            case 2:
+                todos = db.todoDao().getAll();
+                todoText = getString(R.string.all);
                 break;
         }
 
@@ -108,13 +108,13 @@ public class TodoListActivity extends BaseActivity {
                 Intent intentTodoEdit = new Intent(this, TodoEditActivity.class);
                 startActivity(intentTodoEdit);
                 break;
-            case R.id.menu_item_show_all:
+            case R.id.menu_item_show_only_open:
                 _showState = 0;
                 break;
-            case R.id.menu_item_show_only_open:
+            case R.id.menu_item_show_only_completed:
                 _showState = 1;
                 break;
-            case R.id.menu_item_show_only_completed:
+            case R.id.menu_item_show_all:
                 _showState = 2;
                 break;
             case R.id.menu_item_select_theme:
