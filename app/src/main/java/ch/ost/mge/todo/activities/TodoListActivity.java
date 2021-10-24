@@ -64,22 +64,22 @@ public class TodoListActivity extends AppCompatActivity {
         switch(_showState) {
             case 0:
                 todos = db.todoDao().getAll();
-                todoText = "All";
+                todoText = getString(R.string.all);
                 break;
             case 1:
                 todos = db.todoDao().getUncompleted();
-                todoText = "Open";
+                todoText = getString(R.string.open);
                 break;
                 case 2:
                 todos = db.todoDao().getCompleted();
-                todoText = "Completed";
+                todoText = getString(R.string.completed);
                 break;
         }
 
         if(todos != null) {
             _adapter.updateTodos(todos, _showState);
             if(todos.size() > 0) {
-                bottomText.setText(todos.size() + " " + (todos.size() > 1 ? "Todos" : "Todo") + " (" + todoText + ")");
+                bottomText.setText(todos.size() + " " + (todos.size() > 1 ? getString(R.string.todos) : getString(R.string.todo)) + " (" + todoText + ")");
                 noTodoImage.setVisibility(View.GONE);
                 noTodoText.setVisibility(View.GONE);
             } else {

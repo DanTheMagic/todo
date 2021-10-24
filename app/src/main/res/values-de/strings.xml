@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Todo</string>
+    <string name="todo">Todo</string>
+    <string name="todos">Todos</string>
+    <string name="no_todos_found">Keine Todos gefunden!</string>
+    <string name="add">Hinzufügen</string>
+    <string name="show_all">Alle anzeigen</string>
+    <string name="show_only_open">Nur Offene anzeigen</string>
+    <string name="show_only_completed">Nur Erledigte anzeigen</string>
+    <string name="all">Alle</string>
+    <string name="open">Offen</string>
+    <string name="completed">Erledigt</string>
+    <string name="title">Titel</string>
+    <string name="due_date">Fälligkeitsdatum</string>
+    <string name="due_time">Fälligkeitszeit</string>
+    <string name="additional_notes">Zusätzliche Notizen</string>
+    <string name="save">Speichern</string>
+    <string name="delete">Löschen</string>
+    <string name="delete_todo_title">Todo löschen</string>
+    <string name="delete_todo_message">Wollen Sie den Todo wirklich löschen?</string>
+</resources>

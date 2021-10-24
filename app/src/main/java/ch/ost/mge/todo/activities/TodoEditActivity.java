@@ -150,8 +150,8 @@ public class TodoEditActivity extends AppCompatActivity implements DatePickerDia
             case R.id.menu_item_delete:
                 AlertDialog dialog;
                 dialog = new AlertDialog.Builder(this)
-                        .setTitle("Delete Todo")
-                        .setMessage("Do you really want to delete this todo?")
+                        .setTitle(R.string.delete_todo_title)
+                        .setMessage(R.string.delete_todo_message)
                         .setCancelable(false)
                         .setPositiveButton("Yes", (d, id) -> {
                             TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
