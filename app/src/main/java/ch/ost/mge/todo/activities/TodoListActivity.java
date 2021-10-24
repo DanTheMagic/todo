@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -24,6 +26,8 @@ import ch.ost.mge.todo.preferences.PreferenceHelper;
 public class TodoListActivity extends AppCompatActivity {
 
     private TextView bottomText;
+    private ImageView noTodoImage;
+    private TextView noTodoText;
 
     private PreferenceHelper _preferenceHelper;
     private TodoAdapter _adapter;
@@ -35,6 +39,8 @@ public class TodoListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_todo_list);
 
         bottomText = findViewById(R.id.bottom_text);
+        noTodoImage = findViewById(R.id.no_todo_image);
+        noTodoText = findViewById(R.id.no_todo_text);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         _adapter = new TodoAdapter();
@@ -72,7 +78,15 @@ public class TodoListActivity extends AppCompatActivity {
 
         if(todos != null) {
             _adapter.updateTodos(todos, _showState);
-            bottomText.setText(todos.size() + " " + (todos.size() > 1 ? "Todos" : "Todo") + " (" + todoText + ")");
+            if(todos.size() > 0) {
+                bottomText.setText(todos.size() + " " + (todos.size() > 1 ? "Todos" : "Todo") + " (" + todoText + ")");
+                noTodoImage.setVisibility(View.GONE);
+                noTodoText.setVisibility(View.GONE);
+            } else {
+                bottomText.setText("(" + todoText + ")");
+                noTodoImage.setVisibility(View.VISIBLE);
+                noTodoText.setVisibility(View.VISIBLE);
+            }
         }
         db.close();
     }
