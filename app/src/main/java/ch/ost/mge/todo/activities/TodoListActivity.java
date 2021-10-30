@@ -38,7 +38,7 @@ public class TodoListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        _showState = _preferenceHelper.getShowState();
+        _showState = PreferenceHelper.getShowState();
 
         setContentView(R.layout.activity_todo_list);
 
@@ -124,7 +124,7 @@ public class TodoListActivity extends BaseActivity {
 
         if(itemId == R.id.menu_item_show_all || itemId == R.id.menu_item_show_only_open ||
                 itemId == R.id.menu_item_show_only_completed) {
-            _preferenceHelper.setShowState(_showState);
+            PreferenceHelper.setShowState(_showState);
             loadTodos();
         }
 

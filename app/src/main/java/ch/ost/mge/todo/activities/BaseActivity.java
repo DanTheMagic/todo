@@ -8,15 +8,12 @@ import ch.ost.mge.todo.R;
 import ch.ost.mge.todo.preferences.PreferenceHelper;
 
 public class BaseActivity extends AppCompatActivity {
-    protected PreferenceHelper _preferenceHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        _preferenceHelper = new PreferenceHelper(getApplicationContext());
-        setThemeInternal(_preferenceHelper.getTheme());
-
+        setThemeInternal(PreferenceHelper.getTheme());
         setContentView(R.layout.activity_base);
     }
 

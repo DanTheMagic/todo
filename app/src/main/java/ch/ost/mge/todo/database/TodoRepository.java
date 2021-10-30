@@ -7,37 +7,37 @@ import androidx.room.Room;
 import java.util.List;
 
 public class TodoRepository {
-    private static TodoDatabase database;
+    private static TodoDatabase _database;
 
     public static void initialize(Context context) {
-        database = Room.databaseBuilder(context, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
+        _database = Room.databaseBuilder(context, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
     }
 
     public static List<Todo> getUncompletedTodos() {
-        return database.todoDao().getUncompleted();
+        return _database.todoDao().getUncompleted();
     }
 
     public static List<Todo> getCompletedTodos() {
-        return database.todoDao().getCompleted();
+        return _database.todoDao().getCompleted();
     }
 
     public static List<Todo> getAllTodos() {
-        return database.todoDao().getAll();
+        return _database.todoDao().getAll();
     }
 
     public static Todo getTodoById(int id) {
-        return database.todoDao().getById(id);
+        return _database.todoDao().getById(id);
     }
 
     public static void addTodo(Todo todo) {
-        database.todoDao().insert(todo);
+        _database.todoDao().insert(todo);
     }
 
     public static void updateTodo(Todo todo) {
-        database.todoDao().update(todo);
+        _database.todoDao().update(todo);
     }
 
     public static void deleteTodo(Todo todo) {
-        database.todoDao().delete(todo);
+        _database.todoDao().delete(todo);
     }
 }

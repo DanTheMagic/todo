@@ -27,7 +27,7 @@ public class SelectThemeActivity extends BaseActivity {
     }
 
     private void chooseTheme(int theme) {
-        _preferenceHelper.setTheme(theme);
+        PreferenceHelper.setTheme(theme);
 
         Intent intent = new Intent(this, TodoListActivity.class);
         startActivity(intent);
