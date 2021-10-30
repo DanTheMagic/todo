@@ -10,6 +10,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +35,9 @@ import ch.ost.mge.todo.fragments.DatePickerFragment;
 import ch.ost.mge.todo.fragments.TimePickerFragment;
 
 public class TodoEditActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    private final static float FULL_VISIBLE_ALPHA = 1.0f;
+    private final static float HALF_VISIBLE_ALPHA = 0.5f;
+
     private EditText titleEditText;
     private EditText textEditText;
     private EditText dueDateEditText;
@@ -50,6 +55,24 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
         setContentView(R.layout.activity_todo_edit);
 
         titleEditText = findViewById(R.id.title_edittext);
+        titleEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String title  = titleEditText.getText().toString();
+                if (title.length() == 0) {
+                    titleEditText.setError(getString(R.string.title_cannot_be_empty));
+                }  else {
+                    titleEditText.setError(null);
+                }
+                updateSaveButton();
+            }
+        });
         textEditText = findViewById(R.id.text_edittext);
 
         saveButton = findViewById(R.id.save_button);
@@ -82,6 +105,15 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
             _todo.dueDateTime = Calendar.getInstance().getTime();
         }
         updateDueDisplay();
+        updateSaveButton();
+    }
+
+    private void updateSaveButton() {
+        boolean isSaveButtonEnabled = titleEditText.getText().toString().length() > 0;
+        float buttonAlpha = isSaveButtonEnabled ? FULL_VISIBLE_ALPHA : HALF_VISIBLE_ALPHA;
+
+        saveButton.setEnabled(isSaveButtonEnabled);
+        saveButton.setAlpha(buttonAlpha);
     }
 
     private void saveTodo() {

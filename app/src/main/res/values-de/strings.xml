@@ -13,6 +13,7 @@
     <string name="open">Offen</string>
     <string name="completed">Erledigt</string>
     <string name="title">Titel</string>
+    <string name="title_cannot_be_empty">Titel darf nicht leer sein</string>
     <string name="due_date">Fälligkeitsdatum</string>
     <string name="due_time">Fälligkeitszeit</string>
     <string name="additional_notes">Zusätzliche Notizen</string>
