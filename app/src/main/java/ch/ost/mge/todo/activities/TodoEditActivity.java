@@ -35,12 +35,12 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
     private final static float HALF_VISIBLE_ALPHA = 0.5f;
 
     private EditText titleEditText;
-    private EditText textEditText;
     private EditText dueDateEditText;
     private EditText dueTimeEditText;
-    private Button saveButton;
     private TextView completedText;
     private SwitchCompat completedSwitch;
+    private EditText textEditText;
+    private Button saveButton;
 
     private Todo _todo;
     private int _todoId;
@@ -69,10 +69,6 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
                 updateSaveButton();
             }
         });
-        textEditText = findViewById(R.id.text_edittext);
-
-        saveButton = findViewById(R.id.save_button);
-        saveButton.setOnClickListener(v -> saveTodo());
 
         dueDateEditText = findViewById(R.id.due_date_edittext);
         dueDateEditText.setEnabled(false);
@@ -82,6 +78,11 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
 
         completedText = findViewById(R.id.completed_text);
         completedSwitch = findViewById(R.id.completed_switch);
+
+        textEditText = findViewById(R.id.text_edittext);
+
+        saveButton = findViewById(R.id.save_button);
+        saveButton.setOnClickListener(v -> saveTodo());
 
         _todoId = this.getIntent().getIntExtra("todoId", 0);
 
@@ -99,14 +100,6 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
         }
         updateDueDisplay();
         updateSaveButton();
-    }
-
-    private void updateSaveButton() {
-        boolean isSaveButtonEnabled = titleEditText.getText().toString().length() > 0;
-        float buttonAlpha = isSaveButtonEnabled ? FULL_VISIBLE_ALPHA : HALF_VISIBLE_ALPHA;
-
-        saveButton.setEnabled(isSaveButtonEnabled);
-        saveButton.setAlpha(buttonAlpha);
     }
 
     private void saveTodo() {
@@ -129,11 +122,6 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
         dateFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public void showTimePickerDialog(View v) {
-        DialogFragment timeFragment = new TimePickerFragment(_todo.dueDateTime);
-        timeFragment.show(getSupportFragmentManager(), "timePicker");
-    }
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         _todo.dueDateTime.setYear(year-1900);
@@ -142,19 +130,16 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
         updateDueDisplay();
     }
 
+    public void showTimePickerDialog(View v) {
+        DialogFragment timeFragment = new TimePickerFragment(_todo.dueDateTime);
+        timeFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         _todo.dueDateTime.setHours(hourOfDay);
         _todo.dueDateTime.setMinutes(minute);
         updateDueDisplay();
-    }
-
-    private void updateDueDisplay() {
-        String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(_todo.dueDateTime.getTime());
-        dueDateEditText.setText(currentDateString);
-
-        DateFormat outputFormatter = new SimpleDateFormat("HH:mm");
-        dueTimeEditText.setText(outputFormatter.format(_todo.dueDateTime));
     }
 
     @Override
@@ -189,5 +174,21 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
         }
 
         return true;
+    }
+
+    private void updateDueDisplay() {
+        String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(_todo.dueDateTime.getTime());
+        dueDateEditText.setText(currentDateString);
+
+        DateFormat outputFormatter = new SimpleDateFormat("HH:mm");
+        dueTimeEditText.setText(outputFormatter.format(_todo.dueDateTime));
+    }
+
+    private void updateSaveButton() {
+        boolean isSaveButtonEnabled = titleEditText.getText().toString().length() > 0;
+        float buttonAlpha = isSaveButtonEnabled ? FULL_VISIBLE_ALPHA : HALF_VISIBLE_ALPHA;
+
+        saveButton.setEnabled(isSaveButtonEnabled);
+        saveButton.setAlpha(buttonAlpha);
     }
 }

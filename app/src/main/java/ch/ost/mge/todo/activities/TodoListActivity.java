@@ -23,7 +23,6 @@ import ch.ost.mge.todo.database.TodoRepository;
 import ch.ost.mge.todo.preferences.PreferenceHelper;
 
 public class TodoListActivity extends BaseActivity {
-
     private TextView bottomText;
     private ImageView noTodoImage;
     private TextView noTodoText;

@@ -24,16 +24,16 @@ import ch.ost.mge.todo.activities.TodoEditActivity;
 import ch.ost.mge.todo.database.Todo;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
-    private List<Todo> todos;
-    private int showState;
+    private List<Todo> _todos;
+    private int _showState;
 
     public TodoAdapter() {
-        this.todos = new ArrayList<>();
+        this._todos = new ArrayList<>();
     }
 
     public void updateTodos(List<Todo> todos, int showState) {
-        this.todos = todos;
-        this.showState = showState;
+        this._todos = todos;
+        this._showState = showState;
 
         this.notifyDataSetChanged();
     }
@@ -61,7 +61,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
     public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
 
-        Todo todo = this.todos.get(position);
+        Todo todo = this._todos.get(position);
         holder.titleTextView.setText(todo.title);
         holder.textTextView.setText(todo.text.indexOf("\n") >= 0 ? todo.text.substring(0, todo.text.indexOf("\n")) : todo.text);
 
@@ -70,9 +70,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
         String timeString = outputFormatter.format(todo.dueDateTime.getTime());
         holder.dueDateTimeTextView.setText(dateString + " " + timeString);
 
-        holder.dueDateTimeTextView.setTextColor(getColor(context, showState == 0 ? getOpenTodoColor(todo) : R.color.black));
+        holder.dueDateTimeTextView.setTextColor(getColor(context, _showState == 0 ? getUncompleteTodoStateColor(todo) : R.color.black));
 
-        holder.completedImageView.setVisibility(showState == 2 && todo.completed ? View.VISIBLE : View.INVISIBLE);
+        holder.completedImageView.setVisibility(_showState == 2 && todo.completed ? View.VISIBLE : View.INVISIBLE);
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, TodoEditActivity.class);
             intent.putExtra("todoId", todo.id);
@@ -80,9 +80,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
         });
     }
 
-    private int getOpenTodoColor(Todo todo) {
-        if(todo.completed)
+    private int getUncompleteTodoStateColor(Todo todo) {
+        if(todo.completed) {
             return R.color.black;
+        }
 
         Calendar calendar = Calendar.getInstance();
         if(todo.dueDateTime.getTime() < calendar.getTimeInMillis()) {
@@ -99,6 +100,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
 
     @Override
     public int getItemCount() {
-        return this.todos.size();
+        return this._todos.size();
     }
 }
