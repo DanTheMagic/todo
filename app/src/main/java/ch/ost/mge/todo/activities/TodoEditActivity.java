@@ -31,6 +31,7 @@ import java.util.List;
 import ch.ost.mge.todo.R;
 import ch.ost.mge.todo.database.Todo;
 import ch.ost.mge.todo.database.TodoDatabase;
+import ch.ost.mge.todo.database.TodoRepository;
 import ch.ost.mge.todo.fragments.DatePickerFragment;
 import ch.ost.mge.todo.fragments.TimePickerFragment;
 
@@ -93,10 +94,7 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
             completedText.setVisibility(View.VISIBLE);
             completedSwitch.setVisibility(View.VISIBLE);
 
-            TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
-            _todo = db.todoDao().getById(_todoId);
-            db.close();
-
+            _todo = TodoRepository.getTodoById(_todoId);
             titleEditText.setText(_todo.title);
             textEditText.setText(_todo.text);
             completedSwitch.setChecked(_todo.completed);
@@ -121,13 +119,11 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
         _todo.text = textEditText.getText().toString();
         _todo.completed = _todoId != 0 ? completedSwitch.isChecked() : false;
 
-        TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
         if(_todoId > 0) {
-            db.todoDao().update(_todo);
+            TodoRepository.updateTodo(_todo);
         } else {
-            db.todoDao().insert(_todo);
+            TodoRepository.addTodo(_todo);
         }
-        db.close();
 
         Intent intent = new Intent(this, TodoListActivity.class);
         startActivity(intent);
@@ -186,9 +182,7 @@ public class TodoEditActivity extends BaseActivity implements DatePickerDialog.O
                         .setMessage(R.string.delete_todo_message)
                         .setCancelable(false)
                         .setPositiveButton("Yes", (d, id) -> {
-                            TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
-                            db.todoDao().delete(_todo);
-                            db.close();
+                            TodoRepository.deleteTodo(_todo);
 
                             Intent intent = new Intent(this, TodoListActivity.class);
                             startActivity(intent);

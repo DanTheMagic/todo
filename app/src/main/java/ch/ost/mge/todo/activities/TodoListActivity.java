@@ -22,6 +22,7 @@ import ch.ost.mge.todo.R;
 import ch.ost.mge.todo.adapter.TodoAdapter;
 import ch.ost.mge.todo.database.Todo;
 import ch.ost.mge.todo.database.TodoDatabase;
+import ch.ost.mge.todo.database.TodoRepository;
 import ch.ost.mge.todo.preferences.PreferenceHelper;
 
 public class TodoListActivity extends BaseActivity {
@@ -57,20 +58,19 @@ public class TodoListActivity extends BaseActivity {
     }
 
     private void loadTodos() {
-        TodoDatabase db = Room.databaseBuilder(this, TodoDatabase.class, "todo.db").allowMainThreadQueries().build();
         List<Todo> todos = null;
         String todoText = "";
         switch(_showState) {
             case 0:
-                todos = db.todoDao().getUncompleted();
+                todos = TodoRepository.getUncompletedTodos();
                 todoText = getString(R.string.open);
                 break;
                 case 1:
-                todos = db.todoDao().getCompleted();
+                todos = TodoRepository.getCompletedTodos();
                 todoText = getString(R.string.completed);
                 break;
             case 2:
-                todos = db.todoDao().getAll();
+                todos = TodoRepository.getAllTodos();
                 todoText = getString(R.string.all);
                 break;
         }
@@ -87,7 +87,6 @@ public class TodoListActivity extends BaseActivity {
                 noTodoText.setVisibility(View.VISIBLE);
             }
         }
-        db.close();
     }
 
     @Override
