@@ -10,14 +10,14 @@ import java.util.List;
 
 @Dao
 public interface TodoDao {
-    @Query("SELECT * FROM todo ORDER BY dueDateTime ASC")
-    List<Todo> getAll();
-
     @Query("SELECT * FROM todo WHERE completed = 0 ORDER BY dueDateTime ASC")
     List<Todo> getUncompleted();
 
-    @Query("SELECT * FROM todo WHERE completed = 1 ORDER BY dueDateTime ASC")
+    @Query("SELECT * FROM todo WHERE completed = 1 ORDER BY dueDateTime DESC")
     List<Todo> getCompleted();
+
+    @Query("SELECT * FROM todo ORDER BY dueDateTime DESC")
+    List<Todo> getAll();
 
     @Query("SELECT * FROM todo WHERE id = :id")
     Todo getById(int id);
