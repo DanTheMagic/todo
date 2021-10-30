@@ -1,10 +1,8 @@
 package ch.ost.mge.todo.activities;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.room.Room;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -24,13 +22,10 @@ import android.widget.TimePicker;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Calendar;
-import java.util.List;
 
 import ch.ost.mge.todo.R;
 import ch.ost.mge.todo.database.Todo;
-import ch.ost.mge.todo.database.TodoDatabase;
 import ch.ost.mge.todo.database.TodoRepository;
 import ch.ost.mge.todo.fragments.DatePickerFragment;
 import ch.ost.mge.todo.fragments.TimePickerFragment;

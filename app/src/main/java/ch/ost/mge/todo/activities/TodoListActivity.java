@@ -1,11 +1,9 @@
 package ch.ost.mge.todo.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +19,6 @@ import java.util.List;
 import ch.ost.mge.todo.R;
 import ch.ost.mge.todo.adapter.TodoAdapter;
 import ch.ost.mge.todo.database.Todo;
-import ch.ost.mge.todo.database.TodoDatabase;
 import ch.ost.mge.todo.database.TodoRepository;
 import ch.ost.mge.todo.preferences.PreferenceHelper;
 
