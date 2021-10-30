@@ -44,6 +44,7 @@
             app:layout_constraintEnd_toEndOf="@+id/select_theme_text"
             app:layout_constraintStart_toStartOf="@+id/select_theme_text"
             app:layout_constraintTop_toBottomOf="@+id/orange_button" />
+
         <Button
             android:id="@+id/blue_button"
             android:layout_width="0dp"

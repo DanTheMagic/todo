@@ -28,17 +28,87 @@
         app:layout_constraintStart_toEndOf="@+id/title_text"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/save_button"
+    <TextView
+        android:id="@+id/due_date_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/due_date"
+        app:layout_constraintBaseline_toBaselineOf="@+id/due_date_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/title_text"
+        app:layout_constraintStart_toStartOf="@+id/title_text"
+        tools:layout_editor_absoluteY="74dp" />
+
+    <EditText
+        android:id="@+id/due_date_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintEnd_toStartOf="@+id/date_imagebutton"
+        app:layout_constraintStart_toEndOf="@+id/due_date_text"
+        app:layout_constraintTop_toBottomOf="@+id/title_edittext" />
+
+    <ImageButton
+        android:id="@+id/date_imagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/due_date_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/title_edittext"
+        app:layout_constraintTop_toTopOf="@+id/due_date_edittext"
+        app:srcCompat="@drawable/ic_baseline_date_range_24"
+        android:onClick="showDatePickerDialog"/>
+
+    <TextView
+        android:id="@+id/due_time_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/due_time"
+        app:layout_constraintBaseline_toBaselineOf="@+id/due_time_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/due_date_text"
+        app:layout_constraintStart_toStartOf="@+id/due_date_text"
+        tools:layout_editor_absoluteY="129dp" />
+
+    <EditText
+        android:id="@+id/due_time_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/due_time_imagebutton"
+        app:layout_constraintStart_toEndOf="@+id/due_time_text"
+        app:layout_constraintTop_toBottomOf="@+id/due_date_edittext" />
+
+    <ImageButton
+        android:id="@+id/due_time_imagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/due_time_edittext"
+        app:layout_constraintEnd_toEndOf="@+id/date_imagebutton"
+        app:layout_constraintTop_toTopOf="@+id/due_time_edittext"
+        app:srcCompat="@drawable/ic_baseline_access_time_24"
+        android:onClick="showTimePickerDialog" />
+
+    <TextView
+        android:id="@+id/completed_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/completed"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/completed_switch"
+        app:layout_constraintEnd_toStartOf="@+id/due_time_edittext"
+        app:layout_constraintStart_toStartOf="@+id/due_time_text" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/completed_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/completed_text"
+        app:layout_constraintTop_toBottomOf="@+id/due_time_edittext" />
 
     <EditText
         android:id="@+id/text_edittext"
@@ -58,86 +128,16 @@
         app:layout_constraintTop_toBottomOf="@+id/completed_switch"
         app:layout_constraintVertical_bias="0.0" />
 
-
-    <TextView
-        android:id="@+id/due_date_text"
+    <Button
+        android:id="@+id/save_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/due_date"
-        app:layout_constraintBaseline_toBaselineOf="@+id/due_date_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/title_text"
-        app:layout_constraintStart_toStartOf="@+id/title_text"
-        tools:layout_editor_absoluteY="74dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
-        android:id="@+id/date_imagebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/due_date_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/title_edittext"
-        app:layout_constraintTop_toTopOf="@+id/due_date_edittext"
-        app:srcCompat="@drawable/ic_baseline_date_range_24"
-        android:onClick="showDatePickerDialog"/>
-
-    <EditText
-        android:id="@+id/due_date_edittext"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintEnd_toStartOf="@+id/date_imagebutton"
-        app:layout_constraintStart_toEndOf="@+id/due_date_text"
-        app:layout_constraintTop_toBottomOf="@+id/title_edittext" />
-
-    <ImageButton
-        android:id="@+id/due_time_imagebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/due_time_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/date_imagebutton"
-        app:layout_constraintTop_toTopOf="@+id/due_time_edittext"
-        app:srcCompat="@drawable/ic_baseline_access_time_24"
-        android:onClick="showTimePickerDialog" />
-
-    <EditText
-        android:id="@+id/due_time_edittext"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/due_time_imagebutton"
-        app:layout_constraintStart_toEndOf="@+id/due_time_text"
-        app:layout_constraintTop_toBottomOf="@+id/due_date_edittext" />
-
-    <TextView
-        android:id="@+id/due_time_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/due_time"
-        app:layout_constraintBaseline_toBaselineOf="@+id/due_time_edittext"
-        app:layout_constraintEnd_toEndOf="@+id/due_date_text"
-        app:layout_constraintStart_toStartOf="@+id/due_date_text"
-        tools:layout_editor_absoluteY="129dp" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/completed_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@+id/completed_text"
-        app:layout_constraintTop_toBottomOf="@+id/due_time_edittext" />
-
-    <TextView
-        android:id="@+id/completed_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/completed"
-        android:visibility="gone"
-        app:layout_constraintBaseline_toBaselineOf="@+id/completed_switch"
-        app:layout_constraintEnd_toStartOf="@+id/due_time_edittext"
-        app:layout_constraintStart_toStartOf="@+id/due_time_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
